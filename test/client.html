@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="wrapper"></div>
+
+  <script>
+    const wrapper = document.querySelector('#wrapper')
+
+    function callback (data) {
+      wrapper.innerText = data
+    }
+
+    ;(function (window, document) {
+      let i = 100
+      setInterval(() => {
+        const script = document.createElement('script')
+        document.body.appendChild(script)
+        script.src = `http://localhost:3001?value=${i++}&callback=callback`
+        document.body.removeChild(script)
+      }, 1)
+    })(window, document);
+  </script>
+</body>
+</html>
