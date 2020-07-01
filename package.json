@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zymfe/async-worker-threads-pool.git"
+    "url": "git+https://github.com/zhaoyiming0803/async-worker-threads-pool.git"
   },
   "keywords": [
     "worker threads",
@@ -19,7 +19,7 @@
   "author": "zhaoyiming0803@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zymfe/async-worker-threads-pool/issues"
+    "url": "https://github.com/zhaoyiming0803/async-worker-threads-pool/issues"
   },
-  "homepage": "https://github.com/zymfe/async-worker-threads-pool#readme"
+  "homepage": "https://github.com/zhaoyiming0803/async-worker-threads-pool#readme"
 }
