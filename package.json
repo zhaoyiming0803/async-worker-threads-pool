@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client": "node test/client.js",
-    "server": "node test/server.js",
-    "publish": "npm publish"
+    "server": "node test/server.js"
   },
   "repository": {
     "type": "git",
