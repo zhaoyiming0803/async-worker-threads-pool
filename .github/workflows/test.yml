@@ -33,7 +33,7 @@ jobs:
           npm run oss
           echo "Hello ${{ github.event.inputs.name }}!"
 
-      - release: release package
+      - name: release package
       - run: |
           npm run oss
           echo "Hello ${{ github.event.inputs.name }}!"
