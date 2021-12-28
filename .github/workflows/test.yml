@@ -6,11 +6,11 @@ on:
       name:
         description: 'Name'
         required: true
-        default: 'zhaoyiming0803'
+        # default: 'zhaoyiming0803'
       email:
         description: 'Email'
         required: true
-        default: 'zhaoyiming0803@gmail.com'
+        # default: 'zhaoyiming0803@gmail.com'
 
 jobs:
   installPackages:
@@ -23,10 +23,11 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: |
           npm ci
+          npm run print
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- Email is ${{ github.event.inputs.email }}!"
-  runPrintFunction:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-         npm run print
+  # runPrintFunction:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: |
+  #        npm run print
