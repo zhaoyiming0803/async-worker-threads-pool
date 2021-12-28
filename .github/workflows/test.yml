@@ -59,9 +59,9 @@ jobs:
         uses: yizhoumo/setup-ossutil@v1
         with: 
           ossutil-version: '1.7.0' # Optional, default to '1.7.0'
-          endpoint: ${{ OSS_REGION_PROD }}
-          access-key-id: ${{ ALIYUN_ACCESS_KEY }}
-          access-key-secret: ${{ OSS_ACCESS_KEY_SECRET }}
+          endpoint: ${{ secrets.OSS_REGION_PROD }}
+          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
       - name: upload oss
         run: |
