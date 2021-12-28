@@ -21,6 +21,16 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+
+      - name: before script
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/id_rsa
+          touch ~/.ssh/config
+          chmod 700 ~/.ssh/id_rsa
+          echo "SSH_PRIVATE_KEY: ${{ SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "SSH_CONFIG: ${{ SSH_CONFIG }}" > ~/.ssh/config
+          echo "CI_COMMIT_REF_NAME: ${{ CI_COMMIT_REF_NAME }}"
       
       - name: install packages
         run: |
