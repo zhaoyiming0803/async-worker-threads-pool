@@ -56,7 +56,7 @@ jobs:
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
       
       - name: setup oss
-        uses: fuergaosi/ossutil@latest
+        uses: fuergaosi/ossutil@1.6.18
 
       - name: upload oss
         run: |
