@@ -48,7 +48,7 @@ Please check the test directory.
 ``` shell
 npm version prepatch
 npm version patch
-npm version 1.0.16-2
+npm version 1.0.16-beta2
 
 npm version preminor
 npm version minor
