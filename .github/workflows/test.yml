@@ -17,10 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       PUBLISH_OPTS: ${{ github.ref == 'refs/heads/master' && '--verbose' || '--verbose --tag=alpha' }}
-      ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
-      ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY }}
-      OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
-      CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
