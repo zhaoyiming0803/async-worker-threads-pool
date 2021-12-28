@@ -1,15 +1,32 @@
 name: test
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'zhaoyiming0803'
+      email:
+        description: 'location'
+        required: false
+        default: 'zhaoyiming0803@gmail.com'
 
 jobs:
-  test:
+  installPackages:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 12
-        registry-url: https://registry.npmjs.org/
-    - run: |
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: |
         npm ci
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- Email is ${{ github.event.inputs.email }}!"
+  runPrintFunction:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        npm run print
