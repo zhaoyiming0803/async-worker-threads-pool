@@ -89,7 +89,7 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/v${{ VERESION }}",
+              ref: "refs/tags/v$VERESION",
               sha: context.sha
             })
         env:
