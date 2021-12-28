@@ -1,6 +1,6 @@
 {
   "name": "async-worker-threads-pool",
-  "version": "1.0.14",
+  "version": "1.0.14-beta.0",
   "description": "async worker threads pool of node.js",
   "main": "index.js",
   "scripts": {
