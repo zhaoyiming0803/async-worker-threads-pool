@@ -80,6 +80,7 @@ jobs:
           npm publish
         env:
           VERESION: ${{ steps.version.outputs.value }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
 # github action use docker image:
 # https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions
