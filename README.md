@@ -46,12 +46,12 @@ setInterval(() => {
 Please check the test directory.
 
 ``` shell
-npm version pre-patch
+npm version prepatch
 npm version patch
 
-npm version pre-minor
+npm version preminor
 npm version minor
 
-npm version pre-major
+npm version premajor
 npm version major
 ```
