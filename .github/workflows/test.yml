@@ -30,8 +30,8 @@ jobs:
           chmod 700 ~/.ssh/id_rsa
           echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           echo "CI_COMMIT_REF_NAME: $GITHUB_REF"
-        if: ${{ github.ref == 'refs/heads/master' }}
-          echo "This event is a pull request that had an assignee removed."
+#         if: ${{ github.ref == 'refs/heads/master' }}
+#           echo "This event is a pull request that had an assignee removed."
       
       - name: install packages
         run: |
