@@ -14,7 +14,7 @@ on:
 
 jobs:
 
-  print:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,32 +22,19 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      
+      - name: install packages
       - run: |
           npm ci
           npm run print
 
-  oss:
-    runs-on: ubuntu-latest
-    needs: [print]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
+      - name: upload oss
       - run: |
           npm run oss
           echo "Hello ${{ github.event.inputs.name }}!"
 
-  release:
-    runs-on: ubuntu-latest
-    needs: [oss]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
+      - release: release package
       - run: |
-          npm run release
-          echo "Email is ${{ github.event.inputs.email }}!"
+          npm run oss
+          echo "Hello ${{ github.event.inputs.name }}!"
+      
