@@ -55,8 +55,8 @@ jobs:
           npm run print
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
       
-      - name setup oss
-        - uses: fuergaosi/ossutil:latest
+      - name: setup oss
+        uses: fuergaosi/ossutil@latest
 
       - name: upload oss
         run: |
