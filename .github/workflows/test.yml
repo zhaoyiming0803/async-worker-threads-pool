@@ -31,14 +31,19 @@ jobs:
           echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
           echo "CI_COMMIT_REF_NAME: ${{ github.ref }}"
       
-      - name: github ref 
+      - name: if github.ref == 'refs/heads/master'
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: echo This event is a pull request that had an assignee removed.
+        run: PUBLISH_OPTS="--verbose"
+      
+      - name: if github.ref != 'refs/heads/master'
+        if: ${{ github.ref != 'refs/heads/master' }}
+        run: PUBLISH_OPTS="--verbose --tag=alpha"
       
       - name: install packages
         run: |
           npm ci
           npm run print
+          echo "PUBLISH_OPTS: $PUBLISH_OPTS"
 
       - name: upload oss
         run: |
