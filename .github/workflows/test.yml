@@ -19,7 +19,7 @@ jobs:
       PUBLISH_OPTS: ${{ github.ref == 'refs/heads/master' && '--verbose' || '--verbose --tag=alpha' }}
       ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
       ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY }}
-      OSS_REGION_PROD: ${{ secrets.secrets }}
+      OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
       CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
     steps:
       - uses: actions/checkout@v2
@@ -56,13 +56,19 @@ jobs:
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
       
       - name: setup oss
-        uses: fuergaosi/ossutil@1.6.18
+        uses: yizhoumo/setup-ossutil@v1
+        with: 
+          ossutil-version: '1.7.0' # Optional, default to '1.7.0'
+          endpoint: ${{ OSS_REGION_PROD }}
+          access-key-id: ${{ ALIYUN_ACCESS_KEY }}
+          access-key-secret: ${{ OSS_ACCESS_KEY_SECRET }}
 
       - name: upload oss
         run: |
           echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
           echo "VERSION: ${{ steps.version.outputs.value }}"
-          ossutil --access-key-id $ALIYUN_ACCESS_KEY --access-key-secret $ALIYUN_ACCESS_KEY_SECRET -e $OSS_REGION_PROD cp -r -f build oss://$CDN_OSS_PROD/test/$VERESION/
+          ossutil cp -f build oss://$CDN_OSS_PROD/test/$VERESION/
+
         env:
           VERESION: ${{ steps.version.outputs.value }}
 
