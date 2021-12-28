@@ -16,7 +16,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env: 
-      PUBLISH_OPTS: ${{ github.ref_name == 'master' && '--verbose' || '--verbose --tag=alpha' }}
+      PUBLISH_OPTS: ${{ github.ref_name == 'master' && '--verbose' || '--verbose --tag alpha' }}
       ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
       ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
@@ -77,11 +77,23 @@ jobs:
           npm run release
           git config --global user.email ${{ github.event.inputs.email }}
           git config --global user.name ${{ github.event.inputs.name }}
-          git tag -a v$VERSION -m "tag: $VERSION"
           npm publish $PUBLISH_OPTS
         env:
           VERESION: ${{ steps.version.outputs.value }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      
+      - name: create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/<v$VERESION>",
+              sha: context.sha
+            })
+        env:
+          VERESION: ${{ steps.version.outputs.value }}
 
 # github action use docker image:
 # https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions
