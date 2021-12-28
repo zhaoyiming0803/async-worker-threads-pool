@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       PUBLISH_OPTS: ${{ github.ref == 'refs/heads/master' && '--verbose' || '--verbose --tag=alpha' }}
+      ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
+      ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY }}
+      OSS_REGION_PROD: ${{ secrets.secrets }}
+      CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -50,12 +54,15 @@ jobs:
           npm ci
           npm run print
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
-          echo "VERSION: ${{ steps.version.outputs.value }}"
 
       - name: upload oss
         run: |
+          echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
+          echo "VERSION: ${{ steps.version.outputs.value }}"
           npm run oss
-          echo "Hello ${{ github.event.inputs.name }}!"
+          ossutil --access-key-id $ALIYUN_ACCESS_KEY --access-key-secret $ALIYUN_ACCESS_KEY_SECRET -e $OSS_REGION_PROD cp -r -f build oss://$CDN_OSS_PROD/test/$VERESION/
+        env:
+          VERESION: ${{ steps.version.outputs.value }}
 
       - name: release package
         run: |
