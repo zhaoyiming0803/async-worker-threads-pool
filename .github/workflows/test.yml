@@ -13,7 +13,6 @@ on:
         # default: 'zhaoyiming0803@gmail.com'
 
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -35,6 +34,5 @@ jobs:
 
       - name: release package
       - run: |
-          npm run oss
+          npm run release
           echo "Hello ${{ github.event.inputs.name }}!"
-      
