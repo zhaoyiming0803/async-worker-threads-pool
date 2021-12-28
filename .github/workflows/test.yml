@@ -29,7 +29,7 @@ jobs:
           touch ~/.ssh/config
           chmod 700 ~/.ssh/id_rsa
           echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          echo "CI_COMMIT_REF_NAME: ${{ github.GITHUB_REF }}"
+          echo "CI_COMMIT_REF_NAME: ${{ env.GITHUB_REF }}"
       
       - name: install packages
         run: |
