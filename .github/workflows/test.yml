@@ -22,11 +22,11 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: |
-        npm ci
-        echo "Hello ${{ github.event.inputs.name }}!"
-        echo "- Email is ${{ github.event.inputs.email }}!"
+          npm ci
+          echo "Hello ${{ github.event.inputs.name }}!"
+          echo "- Email is ${{ github.event.inputs.email }}!"
   runPrintFunction:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        npm run print
+         npm run print
