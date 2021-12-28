@@ -61,7 +61,7 @@ jobs:
           ossutil-version: '1.7.0' # Optional, default to '1.7.0'
           endpoint: ${{ secrets.OSS_REGION_PROD }}
           access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY }}
-          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
       - name: upload oss
         run: |
