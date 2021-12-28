@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+        env: 
+          PUBLISH_OPTS: ${{ github.ref == 'refs/heads/master' && '--verbose123' || '--verbose --tag=alpha' }}
 
       - name: before script
         run: |
@@ -36,8 +38,6 @@ jobs:
           npm ci
           npm run print
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
-        env: 
-          PUBLISH_OPTS: ${{ github.ref == 'refs/heads/master' && '--verbose' || '--verbose --tag=alpha' }}
 
       - name: upload oss
         run: |
