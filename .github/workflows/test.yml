@@ -23,16 +23,16 @@ jobs:
           registry-url: https://registry.npmjs.org/
       
       - name: install packages
-      - run: |
+        run: |
           npm ci
           npm run print
 
       - name: upload oss
-      - run: |
+        run: |
           npm run oss
           echo "Hello ${{ github.event.inputs.name }}!"
 
       - name: release package
-      - run: |
+        run: |
           npm run release
-          echo "Hello ${{ github.event.inputs.name }}!"
+          echo "Email ${{ github.event.inputs.email }}!"
