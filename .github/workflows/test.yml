@@ -71,3 +71,6 @@ jobs:
         run: |
           npm run release
           echo "Email ${{ github.event.inputs.email }}!"
+
+# github action use docker image:
+# https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions
