@@ -16,7 +16,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env: 
-      PUBLISH_OPTS: ${{ github.ref_name == 'master' && '--verbose' || '--verbose --tag=alpha' }}
+      PUBLISH_OPTS: ${{ github.ref_name == 'master' && '--verbose' || '--verbose --tag beta' }}
       ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
       ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
@@ -77,7 +77,7 @@ jobs:
           echo "Email ${{ github.event.inputs.email }}!"
           git config --global user.email ${{ github.event.inputs.email }}
           git config --global user.name ${{ github.event.inputs.name }}
-          npm publish
+          npm publish $PUBLISH_OPTS
         env:
           VERESION: ${{ steps.version.outputs.value }}
 
