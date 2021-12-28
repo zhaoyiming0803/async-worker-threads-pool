@@ -83,7 +83,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       
       - name: create tag
-        uses: actions/github-script@v5
+        uses: actions/github-script@v3
         with:
           script: |
             github.git.createRef({
