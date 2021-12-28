@@ -6,7 +6,9 @@
   "scripts": {
     "client": "node test/client.js",
     "server": "node test/server.js",
-    "print": "node test/print.js"
+    "print": "node test/print.js",
+    "oss": "node test/oss.js",
+    "release": "node test/release.js"
   },
   "repository": {
     "type": "git",
