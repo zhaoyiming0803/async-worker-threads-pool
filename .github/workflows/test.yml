@@ -75,6 +75,9 @@ jobs:
         run: |
           npm run release
           echo "Email ${{ github.event.inputs.email }}!"
+          git tag -a $VERSION -m "$VERSION"
+        env:
+          VERESION: ${{ steps.version.outputs.value }}
 
 # github action use docker image:
 # https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions
