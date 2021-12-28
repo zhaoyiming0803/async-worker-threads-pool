@@ -56,10 +56,10 @@ jobs:
           echo "PUBLISH_OPTS: $PUBLISH_OPTS"
 
       - name: upload oss
+        uses: fuergaosi/ossutil:latest
         run: |
           echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
           echo "VERSION: ${{ steps.version.outputs.value }}"
-          npm run oss
           ossutil --access-key-id $ALIYUN_ACCESS_KEY --access-key-secret $ALIYUN_ACCESS_KEY_SECRET -e $OSS_REGION_PROD cp -r -f build oss://$CDN_OSS_PROD/test/$VERESION/
         env:
           VERESION: ${{ steps.version.outputs.value }}
