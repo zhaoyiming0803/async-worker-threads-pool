@@ -75,6 +75,8 @@ jobs:
         run: |
           npm run release
           echo "Email ${{ github.event.inputs.email }}!"
+          git config --global user.email ${{ github.event.inputs.email }}
+          git config --global user.name ${{ github.event.inputs.name }}
           git tag -a v$VERSION -m "$VERSION"
         env:
           VERESION: ${{ steps.version.outputs.value }}
