@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Person to greet'
+        description: 'Name'
         required: true
         default: 'zhaoyiming0803'
       email:
-        description: 'location'
-        required: false
+        description: 'Email'
+        required: true
         default: 'zhaoyiming0803@gmail.com'
 
 jobs:
