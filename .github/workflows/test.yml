@@ -77,10 +77,11 @@ jobs:
           npm run release
           git config --global user.email ${{ github.event.inputs.email }}
           git config --global user.name ${{ github.event.inputs.name }}
-          npm publish $PUBLISH_OPTS
+          #npm publish $PUBLISH_OPTS
         env:
           VERESION: ${{ steps.version.outputs.value }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        continue-on-error: true
       
       - name: create tag
         uses: actions/github-script@v3
