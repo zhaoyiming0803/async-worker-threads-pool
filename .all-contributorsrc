@@ -5,16 +5,6 @@
   "imageSize": 100,
   "commit": false,
   "contributors": [
-    {
-      "login": "zhaoyiming0803",
-      "name": "zhaoyiming0803",
-      "avatar_url": "https://avatars.githubusercontent.com/u/25874685?v=4",
-      "profile": "https://github.com/zhaoyiming0803",
-      "contributions": [
-        "test",
-        "code"
-      ]
-    }
   ],
   "contributorsPerLine": 7,
   "projectName": "async-worker-threads-pool",
