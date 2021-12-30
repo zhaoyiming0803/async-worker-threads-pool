@@ -15,6 +15,17 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "zhaoyiming0803",
+      "name": "zhaoyiming0803",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25874685?v=4",
+      "profile": "https://github.com/zhaoyiming0803",
+      "contributions": [
+        "infra",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
