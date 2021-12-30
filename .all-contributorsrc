@@ -6,17 +6,6 @@
   "commit": false,
   "contributors": [
     {
-      "login": "jakebolam",
-      "name": "Jake Bolam",
-      "avatar_url": "https://avatars.githubusercontent.com/u/3534236?v=4",
-      "profile": "https://jakebolam.com",
-      "contributions": [
-        "infra",
-        "test",
-        "code"
-      ]
-    },
-    {
       "login": "zhaoyiming0803",
       "name": "zhaoyiming0803",
       "avatar_url": "https://avatars.githubusercontent.com/u/25874685?v=4",
