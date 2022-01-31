@@ -24,6 +24,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      
+      - name: get branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: branch
 
       - name: get version from package.json
         id: version
@@ -34,10 +39,11 @@ jobs:
 
       - name: before scripts
         run: |
-          echo "Current branch: ${{ github.ref_name }}"
+          echo "Current branch: ${{ env.BRANCH }}"
           echo "Current publish version: ${{ env.VERSION }}"
         env:
           VERSION: ${{ steps.version.outputs.value }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
 
       - name: install packages
         run: |
