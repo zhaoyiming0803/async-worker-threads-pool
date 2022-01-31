@@ -1,3 +1,7 @@
+## [1.0.18-alpha.18](https://github.com/zhaoyiming0803/async-worker-threads-pool/compare/v1.0.18-alpha.17...v1.0.18-alpha.18) (2022-01-31)
+
+
+
 ## [1.0.18-alpha.17](https://github.com/zhaoyiming0803/async-worker-threads-pool/compare/v1.0.18-alpha.16...v1.0.18-alpha.17) (2022-01-31)
 
 

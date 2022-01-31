@@ -24,16 +24,10 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      
-      - name: Get Branch
-        run: |
-         raw=$(git branch -r --contains ${{ github.ref }})
-         branch=${raw/origin\/}
-         echo ::set-env name=BRANCH::$branch
 
       - name: print branch
         run: |
-          echo ${{ env.BRANCH }}
+          echo ${{ github.ref }}
 
       - name: get version from package.json
         id: version
