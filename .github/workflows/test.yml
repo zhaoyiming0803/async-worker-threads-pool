@@ -24,7 +24,7 @@ jobs:
       ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
       CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
-      VERESION: ${{ github.event.inputs.version }}
+      VERSION: ${{ github.event.inputs.version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
       - name: before scripts
         run: |
           echo "Current branch: ${{ github.ref_name }}"
-          echo "Current publish version: ${{ env.VERESION }}"
+          echo "Current publish version: ${{ env.VERSION }}"
           echo "Current user.name: ${{ github.event.inputs.name }}"
           echo "Current user.email: ${{ github.event.inputs.email }}"
       
@@ -72,15 +72,15 @@ jobs:
       #   run: |
       #     echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
       #     echo "VERSION: ${{ steps.version.outputs.value }}"
-      #     ossutil cp -f -r build oss://$CDN_OSS_PROD/test/$VERESION/
+      #     ossutil cp -f -r build oss://$CDN_OSS_PROD/test/$VERSION/
       #   env:
-      #     VERESION: ${{ steps.version.outputs.value }}
+      #     VERSION: ${{ steps.version.outputs.value }}
 
       - name: modify Version
         shell: bash
         run: |
           node -e "var pkg = require('../../package.json'); pkg.version=${{ env.VERSION }}; require('fs').writeFileSync('../../package.json', JSON.stringify(pkg, null, 2));"
-          git commit -a -m "v${{ env.VERESION }}"
+          git commit -a -m "v${{ env.VERSION }}"
 
       - name: publish
         run: |
@@ -96,7 +96,7 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${{ env.VERESION }}",
+              ref: "refs/tags/${{ env.VERSION }}",
               sha: context.sha
             })
 
