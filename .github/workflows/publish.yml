@@ -19,12 +19,31 @@ jobs:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 12
-        registry-url: https://registry.npmjs.org/
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
 
-    - run: |
-        npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-        npm publish $PUBLISH_OPTS --access public
+      - name: get version from package.json
+        id: version
+        uses: ashley-taylor/read-json-property-action@v1.0
+        with:
+          path: ./package.json
+          property: version
+
+      - name: before scripts
+        run: |
+          echo "Current branch: ${{ github.ref_name }}"
+          echo "Current publish version: ${{ env.VERSION }}"
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+
+      - name: install packages
+        run: |
+          npm ci
+
+      - name: publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm publish $PUBLISH_OPTS --access public
