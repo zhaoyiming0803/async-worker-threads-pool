@@ -81,13 +81,13 @@ jobs:
         run: |
           npm run prepublish --publish_version=$VERSION
 
-      - name: git commit version
-        shell: bash
-        run: |
-          git pull origin $BRANCH
-          git add .
-          git commit -m "v${{ env.VERSION }}"
-          git push origin $BRANCH
+      # - name: git commit version
+      #   shell: bash
+      #   run: |
+      #     git pull origin $BRANCH
+      #     git add .
+      #     git commit -m "v${{ env.VERSION }}"
+      #     git push origin $BRANCH
 
       - name: publish
         run: |
