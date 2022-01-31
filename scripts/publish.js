@@ -1,3 +1,5 @@
+// npm run publish --target_version=xxx
+
 const fs = require('fs')
 const chalk = require('chalk')
 const execa = require('execa')
