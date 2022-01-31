@@ -8,7 +8,7 @@
     "server": "node test/server.js",
     "print": "node test/print.js",
     "oss": "node test/oss.js",
-    "release": "node test/release.js"
+    "prepublish": "node scripts/prepublish.js"
   },
   "repository": {
     "type": "git",

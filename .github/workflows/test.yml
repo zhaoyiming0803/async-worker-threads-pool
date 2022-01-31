@@ -76,10 +76,9 @@ jobs:
       #   env:
       #     VERSION: ${{ steps.version.outputs.value }}
 
-      - name: modify Version
-        shell: bash
+      - name: pre publish
         run: |
-          node -e "var pkg = require('../../package.json'); pkg.version=${{ env.VERSION }}; var content = JSON.stringify(pkg, null, 2); require('fs').writeFileSync('../../package.json', content)"
+          npm run prepublish --publish_version=$VERSION
           git commit -a -m "v${{ env.VERSION }}"
 
       - name: publish
