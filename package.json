@@ -1,6 +1,6 @@
 {
   "name": "async-worker-threads-pool",
-  "version": "1.0.18-0",
+  "version": "1.0.18-alpha.1",
   "description": "async worker threads pool of node.js",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/zhaoyiming0803/async-worker-threads-pool#readme",
   "devDependencies": {
+    "chalk": "^4.1.0",
+    "execa": "^4.0.2",
     "node-console-colors": "^1.1.4"
   }
 }

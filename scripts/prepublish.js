@@ -1,11 +1,24 @@
 const fs = require('fs')
-
+const chalk = require('chalk')
+const execa = require('execa')
 const { getArgsFromTerminal } = require('./utils')
+const step = msg => console.log(chalk.cyan(msg))
+const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
 
-const pkg = require('../package.json')
+readyGo()
 
-pkg.version = getArgsFromTerminal('publish_version')
+async function readyGo () {
+  const pkg = require('../package.json')
 
-const content = JSON.stringify(pkg, null, 2)
+  const targetVersion = getArgsFromTerminal('publish_version')
 
-fs.writeFileSync('./package.json', content, 'utf8')
+  pkg.version = targetVersion
+
+  const content = JSON.stringify(pkg, null, 2)
+
+  fs.writeFileSync('./package.json', content, 'utf8')
+
+  step('\nCommitting changes...')
+  await run('git', ['add', '-A'])
+  await run('git', ['commit', '-m', `release: v${targetVersion}`])
+}
