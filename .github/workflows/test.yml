@@ -96,16 +96,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       
-      - name: release
-        uses: actions/github-script@v3
-        with:
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ env.VERSION }}",
-              sha: context.sha
-            })
+      # - name: release
+      #   uses: actions/github-script@v3
+      #   with:
+      #     script: |
+      #       github.git.createRef({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         ref: "refs/tags/${{ env.VERSION }}",
+      #         sha: context.sha
+      #       })
 
 # github action use docker image:
 # https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions

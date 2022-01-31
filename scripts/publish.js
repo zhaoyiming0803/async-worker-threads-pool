@@ -10,7 +10,7 @@ readyGo()
 async function readyGo () {
   const pkg = require('../package.json')
 
-  const targetVersion = getArgsFromTerminal('publish_version')
+  const targetVersion = getArgsFromTerminal('target_version')
 
   pkg.version = targetVersion
 
@@ -21,4 +21,9 @@ async function readyGo () {
   step('\nCommitting changes...')
   await run('git', ['add', '-A'])
   await run('git', ['commit', '-m', `release: v${targetVersion}`])
+  
+  step('\nPushing to GitHub...')
+  await run('git', ['tag', `v${targetVersion}`])
+  await run('git', ['push', 'origin', `refs/tags/v${targetVersion}`])
+  await run('git', ['push'])
 }
