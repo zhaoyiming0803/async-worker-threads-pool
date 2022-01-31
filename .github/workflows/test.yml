@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Your Github Name'
+        description: 'Please enter your github name'
         required: true
-        # default: 'zhaoyiming0803'
       email:
-        description: 'Your Github Email'
+        description: 'Please enter your github email'
         required: true
-        # default: 'zhaoyiming0803@gmail.com'
+      version:
+        description: 'Please enter your release version'
+        required: true
 
 jobs:
   test:
@@ -23,6 +24,8 @@ jobs:
       ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
       CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
+      VERESION: ${{ github.event.inputs.version }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -30,22 +33,24 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
 
-      - name: before script
+      - name: before scripts
         run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/id_rsa
-          touch ~/.ssh/config
-          chmod 700 ~/.ssh/id_rsa
-          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
-          echo "CI_COMMIT_REF_NAME: ${{ github.ref }}"
-          echo "GITHUB_REF_NAME: ${{ github.ref_name }}"
+          echo "Current branch: ${{ github.ref_name }}"
+          echo "Current publish version: ${{ env.VERESION }}"
+          echo "Current user.name: ${{ github.event.inputs.name }}"
+          echo "Current user.email: ${{ github.event.inputs.email }}"
       
-      - name: get version from package.json
-        id: version
-        uses: ashley-taylor/read-json-property-action@v1.0
-        with:
-          path: ./package.json
-          property: version
+      - name: set git config
+        run: |
+          git config --global user.email ${{ github.event.inputs.email }}
+          git config --global user.name ${{ github.event.inputs.name }}
+      
+      # - name: get version from package.json
+      #   id: version
+      #   uses: ashley-taylor/read-json-property-action@v1.0
+      #   with:
+      #     path: ./package.json
+      #     property: version
     
       - name: install packages
 #         uses: actions/cache@v2
@@ -54,48 +59,46 @@ jobs:
 #           key: ${{ github.ref_name }}
         run: |
           npm ci
-          npm run print
-          echo "PUBLISH_OPTS: $PUBLISH_OPTS"
       
-      - name: setup oss
-        uses: yizhoumo/setup-ossutil@v1
-        with: 
-          ossutil-version: '1.7.0' # Optional, default to '1.7.0'
-          endpoint: ${{ secrets.OSS_REGION_PROD }}
-          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY }}
-          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+      # - name: setup oss
+      #   uses: yizhoumo/setup-ossutil@v1
+      #   with: 
+      #     ossutil-version: '1.7.0' # Optional, default to '1.7.0'
+      #     endpoint: ${{ secrets.OSS_REGION_PROD }}
+      #     access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY }}
+      #     access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
-      - name: upload oss
-        run: |
-          echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
-          echo "VERSION: ${{ steps.version.outputs.value }}"
-          ossutil cp -f -r build oss://$CDN_OSS_PROD/test/$VERESION/
-        env:
-          VERESION: ${{ steps.version.outputs.value }}
+      # - name: upload oss
+      #   run: |
+      #     echo "Hello ${{ github.event.inputs.name }}，上传打包到 CDN"
+      #     echo "VERSION: ${{ steps.version.outputs.value }}"
+      #     ossutil cp -f -r build oss://$CDN_OSS_PROD/test/$VERESION/
+      #   env:
+      #     VERESION: ${{ steps.version.outputs.value }}
 
-      - name: release package
+      - name: modify Version
+        shell: bash
         run: |
-          echo "Email ${{ github.event.inputs.email }}!"
-          npm run release
-          git config --global user.email ${{ github.event.inputs.email }}
-          git config --global user.name ${{ github.event.inputs.name }}
-          #npm publish $PUBLISH_OPTS
+          node -e 'var pkg = require("../../package.json"); pkg.version=${{ env.VERSION }}; require("fs").writeFileSync("../../package.json", JSON.stringify(pkg, null, 2))'
+          git commit -a -m "v${{ env.VERESION }}"
+
+      - name: publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm publish $PUBLISH_OPTS --access public
         env:
-          VERESION: ${{ steps.version.outputs.value }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       
-      - name: create tag
+      - name: release
         uses: actions/github-script@v3
         with:
           script: |
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${{env.VERESION}}",
+              ref: "refs/tags/${{ env.VERESION }}",
               sha: context.sha
             })
-        env:
-          VERESION: ${{ steps.version.outputs.value }}
 
 # github action use docker image:
 # https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions
