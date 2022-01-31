@@ -1,6 +1,6 @@
 {
   "name": "async-worker-threads-pool",
-  "version": "1.0.18-alpha.10",
+  "version": "1.0.18-alpha.11",
   "description": "async worker threads pool of node.js",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "print": "node test/print.js",
     "oss": "node test/oss.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "publish": "node scripts/publish.js"
+    "release": "node scripts/release.js"
   },
   "repository": {
     "type": "git",
