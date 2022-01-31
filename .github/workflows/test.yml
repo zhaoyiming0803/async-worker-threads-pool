@@ -79,7 +79,7 @@ jobs:
       - name: modify Version
         shell: bash
         run: |
-          node -e "var pkg = require('../../package.json'); pkg.version=${{ env.VERSION }}; require('fs').writeFileSync('../../package.json', JSON.stringify(pkg, null));"
+          node -e "var pkg = require('../../package.json'); pkg.version=${{ env.VERSION }}; var content = JSON.stringify(pkg, null, 2); require('fs').writeFileSync('../../package.json', content);"
           git commit -a -m "v${{ env.VERSION }}"
 
       - name: publish
