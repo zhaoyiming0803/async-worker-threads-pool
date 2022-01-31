@@ -76,9 +76,13 @@ jobs:
       #   env:
       #     VERSION: ${{ steps.version.outputs.value }}
 
-      - name: pre publish
+      - name: change version
         run: |
           npm run prepublish --publish_version=$VERSION
+
+      - name: git commit version
+        shell: bash
+        run: |
           git commit -a -m "v${{ env.VERSION }}"
 
       - name: publish
