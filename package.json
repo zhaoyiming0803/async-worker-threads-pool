@@ -1,6 +1,6 @@
 {
   "name": "async-worker-threads-pool",
-  "version": "1.0.18-alpha.5",
+  "version": "1.0.18-alpha.6",
   "description": "async worker threads pool of node.js",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "server": "node test/server.js",
     "print": "node test/print.js",
     "oss": "node test/oss.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "publish": "node scripts/publish.js"
   },
   "repository": {
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/zhaoyiming0803/async-worker-threads-pool#readme",
   "devDependencies": {
     "chalk": "^4.1.0",
+    "conventional-changelog-cli": "^2.0.31",
     "execa": "^4.0.2",
     "node-console-colors": "^1.1.4"
   }

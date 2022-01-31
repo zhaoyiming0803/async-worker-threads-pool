@@ -27,9 +27,18 @@ async function readyGo () {
 
   updateVersion(targetVersion)
 
-  step('\nCommitting changes...')
-  await run('git', ['add', '-A'])
-  await run('git', ['commit', '-m', `release: v${targetVersion}`])
+  // generate changelog
+  await run(`yarn`, ['changelog'])
+
+  const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
+
+  if (stdout) {
+    step('\nCommitting changes...')
+    await run('git', ['add', '-A'])
+    await run('git', ['commit', '-m', `release: v${targetVersion}`])
+  } else {
+    console.log('No changes to commit.')
+  }
   
   step('\nPushing to GitHub...')
   await run('git', ['tag', `v${targetVersion}`])
