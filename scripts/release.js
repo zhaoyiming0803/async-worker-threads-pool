@@ -1,4 +1,4 @@
-// npm run publish --target_version=xxx
+// npm run release --target_version=xxx
 
 const fs = require('fs')
 const chalk = require('chalk')
