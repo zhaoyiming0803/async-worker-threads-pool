@@ -25,6 +25,7 @@ jobs:
       OSS_REGION_PROD: ${{ secrets.OSS_REGION_PROD }}
       CDN_OSS_PROD: ${{ secrets.CDN_OSS_PROD }}
       VERSION: ${{ github.event.inputs.version }}
+      BRANCH: ${{ github.ref_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -83,7 +84,10 @@ jobs:
       - name: git commit version
         shell: bash
         run: |
-          git commit -a -m "v${{ env.VERSION }}"
+          git pull origin $BRANCH
+          git add .
+          git commit -m "v${{ env.VERSION }}"
+          git push origin $BRANCH
 
       - name: publish
         run: |
